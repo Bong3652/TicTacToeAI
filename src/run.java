@@ -7,7 +7,10 @@ public class run {
         System.out.println("*** Don't even try cheating the system by messing with the original code ***");
         System.out.println("                        !!!!!THAT'S UNETHICAL!!!!!");
         g.whoGoesFirst();
+        g.displayBoard();
+        while (!g.win()) {
 
+        }
 
     }
     public static void main(String[] args) {
