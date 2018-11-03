@@ -92,6 +92,7 @@ public class Game {
                 }
                 if (p == 2 && s == 1) {
                     board[x][y] = Computer;
+                    return;
                 }
             }
             s = 0;
@@ -108,10 +109,58 @@ public class Game {
                 }
                 if (p == 2 && s == 1) {
                     board[x][y] = Computer;
+                    return;
                 }
             }
             s = 0;
             p = 0;
+        }
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][i] == Player) {
+                p++;
+            } else if (board[i][i] == '_') {
+                s++;
+                x = i;
+                y = i;
+            }
+            if (p == 2 && s == 1) {
+                board[x][y] = Computer;
+                return;
+            }
+        }
+        s = 0;
+        p = 0;
+        if (board[0][2] == Player) {
+            p++;
+        } else if (board[0][2] == '_') {
+            s++;
+            x = 0;
+            y = 2;
+        }
+        if (board[2][0] == Player) {
+            p++;
+        } else if (board[2][0] == '_') {
+            s++;
+            x = 2;
+            y = 0;
+        }
+        if (board[1][1] == Player) {
+            p++;
+        } else if (board[1][1] == '_') {
+            s++;
+            x = 1;
+            y = 1;
+        }
+        if (p == 2 && s == 1) {
+            board[x][y] = Computer;
+            return;
+        }
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == '_') {
+                    board[x][y] = Computer;
+                }
+            }
         }
     }
     public boolean win() {
