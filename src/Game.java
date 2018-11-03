@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
@@ -63,20 +64,24 @@ public class Game {
             System.out.println("Player's move!");
             displayBoard();
             System.out.println("Enter Row then Column");
-            int rc = sc.nextInt();
             try {
+                int rc = sc.nextInt();
                 if (this.board[rc / 10][rc % 10] == '_') {
                     this.board[rc / 10][rc % 10] = player;
                     break;
                 } else {
                     System.out.println("Not a valid move");
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException |InputMismatchException e) {
+                if (sc.nextLine().equalsIgnoreCase("Exit")) {
+                    System.out.println("We gave the computer the turn since your wimping out! haha");
+                    return;
+                }
                 System.out.println("Your outta bound!");
             }
         }
     }
-    public boolean computerWinMove() {
+    /*public boolean computerWinMove() {
         int c = 0; //Computer
         int s = 0; //empty space
         for (int i = 0; i < board.length; i++) {
@@ -134,7 +139,7 @@ public class Game {
             return true;
         }
         return false;
-    }
+    }*/
     public void computerMove(char Player, char Computer) {
         int p = 0; //Player
         int c = 0; //Computer
@@ -173,6 +178,12 @@ public class Game {
                     s++;
                     x = j;
                     y = i;
+                } else {
+                    c++;
+                }
+                if (c == 2 && s == 1) {
+                    board[x][y] = Computer;
+                    return;
                 }
                 if (p == 2 && s == 1) {
                     board[x][y] = Computer;
@@ -181,6 +192,7 @@ public class Game {
             }
             s = 0;
             p = 0;
+            c = 0;
         }
         for (int i = 0; i < board.length; i++) {
             if (board[i][i] == Player) {
@@ -189,6 +201,12 @@ public class Game {
                 s++;
                 x = i;
                 y = i;
+            } else {
+                c++;
+            }
+            if (c == 2 && s == 1) {
+                board[x][y] = Computer;
+                return;
             }
             if (p == 2 && s == 1) {
                 board[x][y] = Computer;
@@ -197,12 +215,15 @@ public class Game {
         }
         s = 0;
         p = 0;
+        c = 0;
         if (board[0][2] == Player) {
             p++;
         } else if (board[0][2] == '_') {
             s++;
             x = 0;
             y = 2;
+        } else {
+            c++;
         }
         if (board[2][0] == Player) {
             p++;
@@ -210,6 +231,8 @@ public class Game {
             s++;
             x = 2;
             y = 0;
+        } else {
+            c++;
         }
         if (board[1][1] == Player) {
             p++;
@@ -217,6 +240,12 @@ public class Game {
             s++;
             x = 1;
             y = 1;
+        } else {
+            c++;
+        }
+        if (c == 2 && s == 1) {
+            board[x][y] = Computer;
+            return;
         }
         if (p == 2 && s == 1) {
             board[x][y] = Computer;
@@ -225,16 +254,16 @@ public class Game {
         if (board[1][1] == '_') {
             board[1][1] = Computer;
             return;
-        } else if (board[0][0] == '_') {
+        } else if (board[0][0] == '_' && board[2][2] == Player) {
             board[0][0] = Computer;
             return;
-        } else if (board[0][2] == '_') {
+        } else if (board[0][2] == '_' && board[2][0] == Player) {
             board[0][2] = Computer;
             return;
-        } else if (board[2][0] == '_') {
+        } else if (board[2][0] == '_' && board[0][2] == Player) {
             board[2][0] = Computer;
             return;
-        } else if (board[2][2] == '_') {
+        } else if (board[2][2] == '_' && board[0][0] == Player) {
             board[2][2] = Computer;
             return;
         }
@@ -250,15 +279,19 @@ public class Game {
     public boolean win() {
         for (int i = 0; i < board.length; i++) {
             if (board[i][0] == board [i][1] && board [i][1] == board[i][2] && board[i][0] != '_') {
+                System.out.println("Computer(" + board[i][0] + ") wins");
                 return true;
             }
             if (board[0][i] == board [1][i] && board [1][i] == board[2][i] && board[0][i] != '_') {
+                System.out.println("Computer(" + board[0][i] + ") wins");
                 return true;
             }
             if (board[0][0] == board [1][1] && board [1][1] == board[2][2] && board[0][0] != '_') {
+                System.out.println("Computer(" + board[0][0] + ") wins");
                 return true;
             }
             if (board[0][2] == board [1][1] && board [1][1] == board[2][0] && board[0][2] != '_') {
+                System.out.println("Computer(" + board[0][2] + ") wins");
                 return true;
             }
         }

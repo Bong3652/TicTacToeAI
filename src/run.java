@@ -14,7 +14,7 @@ public class run {
                 g.computerMove('O', 'X');
                 g.move('O');
             }
-            if (g.possMove() == 0) {
+            if (g.possMove() == 0 || g.win()) {
                 break;
             }
         }
