@@ -57,19 +57,61 @@ public class Game {
         }
         return count;
     }
-    public void move(char player, char oppenent) {
+    public void move(char player) {
         Scanner sc = new Scanner(System.in);
         while(true) {
-            System.out.printf("%s's move!\n", player);
+            System.out.println("Player's move!");
             displayBoard();
             System.out.println("Enter Row then Column");
             int rc = sc.nextInt();
-            if (this.board[rc / 10][rc % 10] == '_') {
-                this.board[rc / 10][rc % 10] = player;
-                break;
-            } else {
-                System.out.println("Not a valid move");
+            try {
+                if (this.board[rc / 10][rc % 10] == '_') {
+                    this.board[rc / 10][rc % 10] = player;
+                    break;
+                } else {
+                    System.out.println("Not a valid move");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Your outta bound!");
             }
+        }
+    }
+    public void computerMove(char Player, char Computer) {
+        int p = 0; //Player
+        int s = 0; //space
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == Player) {
+                    p++;
+                } else if (board[i][j] == '_') {
+                    s++;
+                    x = i;
+                    y = j;
+                }
+                if (p == 2 && s == 1) {
+                    board[x][y] = Computer;
+                }
+            }
+            s = 0;
+            p = 0;
+        }
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[j][i] == Player) {
+                    p++;
+                } else if (board[j][i] == '_') {
+                    s++;
+                    x = j;
+                    y = i;
+                }
+                if (p == 2 && s == 1) {
+                    board[x][y] = Computer;
+                }
+            }
+            s = 0;
+            p = 0;
         }
     }
     public boolean win() {

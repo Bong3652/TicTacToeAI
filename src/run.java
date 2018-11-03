@@ -8,9 +8,10 @@ public class run {
         g.whoGoesFirst();
         while (!g.win() || g.possMove() == 0) {
             if (g.getPlayer() == 'X') {
-                g.move('X', 'O');
+                g.move('X');
+                g.computerMove('X', 'O');
             } else if (g.getPlayer() == 'O') {
-                g.move('O', 'X');
+                g.move('O');
             }
         }
         g.displayBoard();
