@@ -76,6 +76,65 @@ public class Game {
             }
         }
     }
+    public boolean computerWinMove() {
+        int c = 0; //Computer
+        int s = 0; //empty space
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == '_') {
+                    s++;
+                } else {
+                    c++;
+                }
+                if (c == 2 && s == 1) {
+                    return true;
+                }
+            }
+            s = 0;
+            c = 0;
+        }
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[j][i] == '_') {
+                    s++;
+                }
+                if (c == 2 && s == 1) {
+                    return true;
+                }
+            }
+            s = 0;
+            c = 0;
+        }
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][i] == '_') {
+                s++;
+            }
+            if (c == 2 && s == 1) {
+                return true;
+            }
+        }
+        s = 0;
+        c = 0;
+        if (board[0][2] == Computer) {
+            c++;
+        } else if (board[0][2] == '_') {
+            s++;
+        }
+        if (board[2][0] == Computer) {
+            c++;
+        } else if (board[2][0] == '_') {
+            s++;
+        }
+        if (board[1][1] == Computer) {
+            c++;
+        } else if (board[1][1] == '_') {
+            s++;
+        }
+        if (c == 2 && s == 1) {
+            return true;
+        }
+        return false;
+    }
     public void computerMove(char Player, char Computer) {
         int p = 0; //Player
         int c = 0; //Computer
@@ -104,6 +163,7 @@ public class Game {
             }
             s = 0;
             p = 0;
+            c = 0;
         }
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -162,10 +222,27 @@ public class Game {
             board[x][y] = Computer;
             return;
         }
+        if (board[1][1] == '_') {
+            board[1][1] = Computer;
+            return;
+        } else if (board[0][0] == '_') {
+            board[0][0] = Computer;
+            return;
+        } else if (board[0][2] == '_') {
+            board[0][2] = Computer;
+            return;
+        } else if (board[2][0] == '_') {
+            board[2][0] = Computer;
+            return;
+        } else if (board[2][2] == '_') {
+            board[2][2] = Computer;
+            return;
+        }
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == '_') {
-                    board[x][y] = Computer;
+                    board[i][j] = Computer;
+                    return;
                 }
             }
         }
