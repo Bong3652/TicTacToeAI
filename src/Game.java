@@ -78,7 +78,8 @@ public class Game {
     }
     public void computerMove(char Player, char Computer) {
         int p = 0; //Player
-        int s = 0; //space
+        int c = 0; //Computer
+        int s = 0; //empty space
         int x = 0;
         int y = 0;
         for (int i = 0; i < board.length; i++) {
@@ -89,6 +90,12 @@ public class Game {
                     s++;
                     x = i;
                     y = j;
+                } else {
+                    c++;
+                }
+                if (c == 2 && s == 1) {
+                    board[x][y] = Computer;
+                    return;
                 }
                 if (p == 2 && s == 1) {
                     board[x][y] = Computer;
